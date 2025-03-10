@@ -8,8 +8,6 @@ services:
       - '80:80'
       - '443:443'
       - '81:81'
-      - '21:21'       # FTP command port
-      - '30000-30009:30000-30009' # FTP passive data ports
     environment:
       DB_MYSQL_HOST: "db"
       DB_MYSQL_PORT: 3306
