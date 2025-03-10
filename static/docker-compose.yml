@@ -1,0 +1,38 @@
+services:
+  ftp:
+    image: stilliard/pure-ftpd
+    container_name: ftp
+    hostname: ftp
+    restart: always
+    networks:
+      - mysql-net
+    ports:
+      - "21:21"
+      - "30000-30009:30000-30009"
+    environment:
+      FTP_user: ftpuser
+      FTP_USER_PASS: ftppassword
+      FTP_USER_HOME: /home/ftpuser
+    volumes:
+      - ftp:/home/ftpuser
+
+  apache:
+    image: httpd:latest
+    container_name: apache
+    hostname: apache
+    restart: always
+    networks:
+      - mysql-net
+    ports:
+      - 8081:80
+    volumes:
+      - ftp:/usr/local/apache2/htdocs:ro
+
+volumes:
+  ftp:
+    name: ftp
+
+networks:
+  mysql-net:
+    external: true
+    name: mysql-net
