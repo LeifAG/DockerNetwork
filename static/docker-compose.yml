@@ -10,11 +10,12 @@ services:
       - "21:21"
       - "30000-30009:30000-30009"
     environment:
-      FTP_user: ftpuser
+      FTP_USER_NAME: ftpuser
       FTP_USER_PASS: ftppassword
       FTP_USER_HOME: /home/ftpuser
     volumes:
-      - ftp:/home/ftpuser
+      - "/home/tekimp/DockerNetwork/static/data:/home/ftpuser/"
+      - "/home/tekimp/DockerNetwork/static/passwd:/etc/pure-ftpd/passwd"
 
   apache:
     image: httpd:latest
